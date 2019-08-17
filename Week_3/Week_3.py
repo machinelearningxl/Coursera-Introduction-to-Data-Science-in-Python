@@ -300,7 +300,19 @@ def answer_twelve():
     grouped = grouped.set_index(['Continent', '% Renewable'])
     return grouped['Country']
 
+def answer_thirteen():
+    # Question 13 (6.6%)
+    # Convert the Population Estimate series to a string with thousands separator (using commas).
+    # Do not round the results.
+    # e.g. 317615384.61538464 -> 317,615,384.61538464
+    # This function should return a Series PopEst whose index is the country name and whose values are the
+    # population estimate string.
 
+    Top15 = answer_one()
 
-print(answer_twelve())
+    Top15["Est. Population"] = (Top15["Energy Supply"] / Top15["Energy Supply per Capita"])
+    Top15["Est. Population"] =Top15["Est. Population"].apply(lambda x: '{:,}'.format(x))
+    return Top15["Est. Population"]
+
+print(answer_thirteen())
 
