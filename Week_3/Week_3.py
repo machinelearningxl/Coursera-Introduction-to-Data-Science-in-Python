@@ -147,16 +147,22 @@ def answer_three():
     #  What is the average GDP over the last 10 years for each country? (exclude missing values from this calculation.)
     #  This function should return a Series named avgGDP with 15 countries and their average GDP sorted in descending order.
     Top15 = answer_one()
-    return Top15.iloc[:,10:20].mean(axis=1, skipna = True).sort_values(ascending=False, axis=0)
+    Top15 ["mean"] = Top15.iloc[:,10:20].mean(axis=1, skipna = True)
+    avgGDP = Top15.sort_values(by= "mean", ascending=False)
+    return avgGDP["mean"].apply(lambda x: '%.2f' % x)
+
 
 def answer_four():
    # Question 4 (6.6%)
    # By how much had the GDP changed over the 10 year span for the country with the 6th largest average GDP?
    # This function should return a single number.
+   Top15 = answer_one()
+   Top15['average_GDP'] = Top15.iloc[:,10:20].mean(axis=1, skipna = True)
+   largest = Top15.sort_values(by= "average_GDP", ascending=False)
+   sixth_largest =largest.iloc[5]
+   ans=sixth_largest["2015"]-sixth_largest["2006"]
+   return ans
 
-    Top15 = answer_one()
-    average =answer_three().index[5]
-    return Top15
 
 def answer_five():
     #  Question 5 (6.6%)
@@ -314,5 +320,5 @@ def answer_thirteen():
     Top15["Est. Population"] =Top15["Est. Population"].apply(lambda x: '{:,}'.format(x))
     return Top15["Est. Population"]
 
-print(answer_thirteen())
+print(answer_four())
 
